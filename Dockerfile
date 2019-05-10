@@ -13,10 +13,10 @@ RUN Invoke-WebRequest ($env:arcUrl) -UseBasicParsing -OutFile c:\temp\arc.exe
 #Download AlertManager
 ENV alertmanagerVersion $alertmanagerVersion
 ENV alertmanagerUrl https://github.com/prometheus/alertmanager/releases/download/v${alertmanagerVersion}/alertmanager-${alertmanagerVersion}.windows-amd64.tar.gz
-RUN Invoke-WebRequest ($env:alertmanagerUrl) -UseBasicParsing -OutFile alertmanager.tar.gz
+RUN Invoke-WebRequest ($env:alertmanagerUrl) -UseBasicParsing -OutFile c:\temp\alertmanager.tar.gz
 
 #extract the archive
-RUN c:\temp\arc.exe unarchive .\alertmanager.tar.gz .\alertmanager 
+RUN c:\temp\arc.exe unarchive c:\temp\alertmanager.tar.gz c:\temp\alertmanager 
 #Move the alertmanager Directory to take aout the version number
 RUN mv c:\temp\alertmanager\alertmanager-$env:alertmanagerVersion.windows-amd64\ c:\temp\alertmanager\alertmanager
 
