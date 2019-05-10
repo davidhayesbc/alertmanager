@@ -1,0 +1,23 @@
+jobs:
+  - job: 'BuildDockerImage'
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Docker'
+          repository: 'davidhayes/alertmanager'
+          command: 'build'
+          Dockerfile: '**/Dockerfile'
+          tags: |
+            nanoserver$(NanoServerVersion)alertmanager$(alertmanagerVersion)
+            latest
+          arguments: '--build-arg nanoServerVersion=$(NanoServerVersion) --build-arg alertmanagerVersion=$(alertmanagerVersion)'
+      - task: Docker@2
+        inputs:
+          containerRegistry: 'Docker'
+          repository: 'davidhayes/alertmanager'
+          command: 'push'
+          tags: |
+            nanoserver$(NanoServerVersion)alertmanager$(alertmanagerVersion)
+            latest
