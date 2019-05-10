@@ -22,7 +22,7 @@ RUN mv c:\temp\alertmanager\alertmanager-$env:alertmanagerVersion.windows-amd64\
 
 # Second build stage, copy the extracted files into a nanoserver container
 FROM mcr.microsoft.com/windows/nanoserver:$nanoServerVersion
-COPY --from=build /alertmanager/alertmanager/ /alertmanager
+COPY --from=build c:/temp/alertmanager/alertmanager/ /alertmanager
 LABEL maintainer="david.hayes@spindriftpages.net"
 
 #Expose a port from the container
